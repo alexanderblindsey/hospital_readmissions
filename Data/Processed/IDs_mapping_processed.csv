@@ -1,0 +1,31 @@
+,values,admission_source_id,admission_type_id,discharge_disposition_id
+0,1, Physician Referral,Emergency,Discharged to home
+1,2,Clinic Referral,Urgent,Discharged/transferred to another short term hospital
+2,3,HMO Referral,Elective,Discharged/transferred to SNF
+3,4,Transfer from a hospital,Newborn,Discharged/transferred to ICF
+4,5, Transfer from a Skilled Nursing Facility (SNF),Not Available,Discharged/transferred to another type of inpatient care institution
+5,6, Transfer from another health care facility,NULL,Discharged/transferred to home with home health service
+6,7, Emergency Room,Trauma Center,Left AMA
+7,8, Court/Law Enforcement,Not Mapped,Discharged/transferred to home under care of Home IV provider
+8,9, Not Available,,Admitted as an inpatient to this hospital
+9,10, Transfer from critial access hospital,,Neonate discharged to another hospital for neonatal aftercare
+10,11,Normal Delivery,,Expired
+11,12, Premature Delivery,,Still patient or expected to return for outpatient services
+12,13, Sick Baby,,Hospice / home
+13,14, Extramural Birth,,Hospice / medical facility
+14,15,Not Available,,Discharged/transferred within this institution to Medicare approved swing bed
+15,17,NULL,,Discharged/transferred/referred to this institution for outpatient services
+16,18, Transfer From Another Home Health Agency,,NULL
+17,19,Readmission to Same Home Health Agency,,"Expired at home. Medicaid only, hospice."
+18,20, Not Mapped,,"Expired in a medical facility. Medicaid only, hospice."
+19,21,Unknown/Invalid,,"Expired, place unknown. Medicaid only, hospice."
+20,22, Transfer from hospital inpt/same fac reslt in a sep claim,,Discharged/transferred to another rehab fac including rehab units of a hospital .
+21,23, Born inside this hospital,,Discharged/transferred to a long term care hospital.
+22,24, Born outside this hospital,,Discharged/transferred to a nursing facility certified under Medicaid but not certified under Medicare.
+23,25, Transfer from Ambulatory Surgery Center,,Not Mapped
+24,26,Transfer from Hospice,,Unknown/Invalid
+25,16,,,Discharged/transferred/referred another institution for outpatient services
+26,30,,,Discharged/transferred to another Type of Health Care Institution not Defined Elsewhere
+27,27,,,Discharged/transferred to a federal health care facility.
+28,28,,,Discharged/transferred/referred to a psychiatric hospital of psychiatric distinct part unit of a hospital
+29,29,,,Discharged/transferred to a Critical Access Hospital (CAH).

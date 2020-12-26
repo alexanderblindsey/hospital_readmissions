@@ -21,19 +21,25 @@ from sklearn.preprocessing import StandardScaler
 PATH = 'Data/Raw/diabetic_data.csv'
 df = pd.read_csv(PATH)
 
+
 # NaN represented as ? in raw file
 df.replace('?', np.nan, inplace=True) 
 df.drop(['encounter_id'], axis=1, inplace=True) # encounter_id is redundant - 
                                                 # each encounter_id and index 
                                                 # are unique
+
+
 # make readmitted binary
 df['readmitted'].replace({'<30':'YES', '>30':'YES'}, inplace=True)
+
 
 # drop duplicates
 df.drop_duplicates(subset= ['patient_nbr'], keep = 'first', inplace=True)
 
+
 # patient_nbr becomes redundant
 df.drop(['patient_nbr'], axis=1, inplace=True) 
+
 
 # impute missing values
 df.rename(columns={'diag_1':'diagnosis'}, inplace=True) 
@@ -51,6 +57,7 @@ for i in tqdm(df.index):
     if pd.isnull(current_diag) == True:
         df.at[i, 'diagnosis'] = max_diag
         
+        
 # drop initial columns
 cols_to_drop = ['weight',
                 'payer_code',
@@ -62,6 +69,7 @@ cols_to_drop = ['weight',
                 'citoglipton']
 
 df.drop(cols_to_drop, axis=1, inplace=True)
+
 
 # categorizing diagnoses into 18 larger categories
 for i in df.index:
@@ -134,8 +142,10 @@ for i in df.index:
     if current_glu in ['>200', '>300']:
         df.at[i, 'max_glu_serum'] = 'high'
 
+
 # save - for initial viz
 df.to_csv(r'Data/Processed/df1.csv')
+
 
 # find changes in patient drug regimen
 df['drug_changes'] = 0
@@ -170,9 +180,9 @@ for i in tqdm(df.index):
 df.drop(drug_cols, axis=1, inplace=True) # drop drug cols - responsible for too
                                          # many features in one-hot-encoded df
 
+
 # reduce possible values for admission_source_id, admission_type_id, and
 # discharge_disposition_id
-
 for i in tqdm(df.index):
     current_admin_source = df.at[i, 'admission_source_id']
     current_admin_type = df.at[i, 'admission_type_id']
@@ -216,8 +226,10 @@ for i in tqdm(df.index):
     elif current_dis in [25, 26]: # lump Null, unknown, etc
         df.at[i, 'discharge_disposition_id'] = 18
 
+
 # save - for id columns viz
 df.to_csv(r'Data/Processed/df2.csv')
+
 
 # one hot encode
 continuous_cols = []
@@ -232,12 +244,14 @@ for c in df.columns:
         categorical_cols.append(c)
 df_ohe = pd.get_dummies(data=df, columns=categorical_cols, drop_first=True)
 
+
 # splitting
 X_train, X_test, y_train, y_test = train_test_split(df_ohe.drop(['readmitted_YES'], axis=1), 
                                                     df_ohe['readmitted_YES'],
                                                     train_size=.8,
                                                     shuffle=True,
                                                     random_state=1)
+
 
 # scaling
 ct = ColumnTransformer(transformers=[('scaler', StandardScaler(), continuous_cols)],
@@ -248,6 +262,8 @@ X_train = pd.DataFrame(ct.fit_transform(X_train),
 X_test = pd.DataFrame(ct.transform(X_test),
                       columns=X_test.columns)
 
+
+# save preprocessed dataset
 df_ohe.to_csv(r'Data/Processed/df_ohe.csv')
 X_train.to_csv(r'Data/Processed/X_train.csv')
 X_test.to_csv(r'Data/Processed/X_test.csv')

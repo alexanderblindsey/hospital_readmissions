@@ -65,9 +65,8 @@ Below is a list of features and their descriptions.
 
 As can be seen below, the prevalance of readmission in this dataset is low - likely a reflection of the fact that readmission is costly to care providers.
 
-<p align="center">
-  <img src="Images/Readmission_Incidence.png" width="350">
-</p>
+![alt text](Images/Readmission_Incidence.png)
+
 
 
 ## Further Investigations

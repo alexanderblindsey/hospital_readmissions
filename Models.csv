@@ -1,0 +1,32 @@
+ridge,"{LogisticRegression(C=12, max_iter=2000, solver='sag'): 0.6323451335050974}"
+SGD,"{SGDClassifier(alpha=0.5000005, epsilon=1.2575, loss='huber'): 0.6208095213283877}"
+random forest,"{RandomForestClassifier(max_depth=65, min_samples_leaf=23, min_samples_split=19,
+                       n_estimators=258): 0.63701185189374}"
+adaboost,"{AdaBoostClassifier(learning_rate=0.6210526315789474, n_estimators=120): 0.6349668663920085}"
+hardvoting,"{VotingClassifier(estimators=[('randomforestclf',
+                              RandomForestClassifier(max_depth=65,
+                                                     min_samples_leaf=23,
+                                                     min_samples_split=19,
+                                                     n_estimators=258)),
+                             ('adaboostclf',
+                              AdaBoostClassifier(learning_rate=0.6210526315789474,
+                                                 n_estimators=120)),
+                             ('ridgeclf',
+                              LogisticRegression(C=12, max_iter=2000,
+                                                 solver='sag')),
+                             ('sgdclf',
+                              SGDClassifier(alpha=0.5000005, epsilon=1.2575,
+                                            loss='huber'))],
+                 weights=array([4, 3, 2, 1])): 0.635438810328564}"
+softvoting,"{VotingClassifier(estimators=[('randomforestclf',
+                              RandomForestClassifier(max_depth=65,
+                                                     min_samples_leaf=23,
+                                                     min_samples_split=19,
+                                                     n_estimators=258)),
+                             ('adaboostclf',
+                              AdaBoostClassifier(learning_rate=0.6210526315789474,
+                                                 n_estimators=120)),
+                             ('ridgeclf',
+                              LogisticRegression(C=12, max_iter=2000,
+                                                 solver='sag'))],
+                 voting='soft', weights=array([3, 2, 1])): 0.6365049948596513}"

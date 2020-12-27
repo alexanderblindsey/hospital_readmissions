@@ -20,9 +20,9 @@ Models similair to the one(s) created in this investigation could be used by hos
 
 The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for accuracy, where: 
 
-```math
+$$
 accuracy= \frac{TP + TN}{total\ observations}\tag{1}
-```
+$$
 
 Where:
 - TP = True Positive
@@ -192,3 +192,6 @@ The present analysis defines readmission as a patient revisiting the hospital wh
 ```python
 df['readmitted'].replace({'<30':'YES', '>30':'NO'}, inplace=True)
 ```
+
+<script type="text/javascript" async
+src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">

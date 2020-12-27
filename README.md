@@ -156,7 +156,7 @@ Where:
 - FP = False Positives
 - FN = False Negatives
 
-![alt_text](Images/softvoting_results.png)
+![alt_text](Images/softvoting_results)
 
 Below are ROC curves for each model with a `.predict_proba_` method - the dotted line represents a totally random model, and so curves farther away from the model are better. 
 

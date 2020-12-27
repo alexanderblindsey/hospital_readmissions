@@ -20,10 +20,13 @@ Models similair to the one(s) created in this investigation could be used by hos
 
 The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for accuracy, where: 
 
-$$accuracy= \frac{positive\ observations}{total\ observations}\tag{1}$$
+$$accuracy= \frac{TP + TN}{total\ observations}\tag{1}$$
+
+Where:
+- TP = True Positive
+- TN = True Negative
 
 Readmission is defined, for the purposes of this specific analysis, as _any readmission_ after the original admission to the hospital (e.g., the patient would count as reamitted if they were readmitted after 30 days). This is because the incidence rate of <30 day readmission is extremely low in this dataset.
-
 
 ## Data Description
 
@@ -61,15 +64,118 @@ Below is a list of features and their descriptions.
 
 ## Exploratory Analysis
 
+**Warning**: If you have Github set to darkmode, turn off darkmode. 
+
 ### Readmission
 
-As can be seen below, the prevalance of readmission in this dataset is low - likely a reflection of the fact that readmission is costly to care providers.
+As can be seen below, the prevalance of readmission in this dataset is low - likely a reflection of the fact that readmission is costly to care providers. A large majority of readmissions are >30 day readmission.
 
 ![alt text](Images/Readmission_Incidence.png)
 
+### Incidence of Features (Non-Drug) vs. Readmission
+
+Figure 2, below, shows the incidence of each non-drug feature, broken down by readmission. 
+
+Unfortunantly, the incidence rate of readmission is constant for each feature - no feature stands out that might play a major role in predicting readmission. However, there are a few patterns to note:
+- The likelyhood of readmission increases with a change in diabetic medication.
+- The likelyhood of readmission increases with age.
+- The likelyhood of readmission increases was the number of medications increases, until the likelyhood starts to decrease. 
+- The likelyhood of readmission increases with the number of diagnoses, spiking at 9 diagnoses. 
+- The likelyhood of readmission increases with the number of lab procedures.
+
+Note that the y-axis is the number of observations. 
+
+![alt text](Images/Readmission_NonDrug.png)
+
+### Incidence of Drug Features vs. Readmission
+
+Figure 3 below shows the same as Figure 2 but for drug features. Unfortnately, no features stand out in its possible ability to explain the variance of readmission.
+
+![alt text](Images/Readmission_Drug.png)
+
+### Changes in Drug Regimen
+
+In an effort to reduce dimensionality, changes in prescribed drug dosages are used instead of the drugs themselves. A composite metric, `drug_changes` is created. For each prescribed change in the dosage of a drug, whether it be increased or decreased, this metric increases by 1. Otherwise, it is not increased (i.e., someone with no changes in their prescribed drug dosages would have a `drug_changes` of 0).
+
+Drug features are then dropped from modelling.
+
+![alt text]('Images/Readmission_DrugChanges.png')
+
+### Admission Type, Admission Source, Discharge Disposition
+As seen in the `codes` dataframe, many of values in `admission_source_id`, `admission_type_id`, and `discharge_disposition_id` are very similair (i.e., `discharge_disposition_id` equal to 11, 19, 20 or 21 all indicated the patient expired). 
+
+Similair values are therefore lumped together based on their definition in `codes`. 
+
+![alt text]('Images/Readmission_ID.png')
+
+### Correlation Matrix
+
+Figure 5 below shows the correlation matrix for a continuous features. Notice that the number of procedures, number of medications, and time in hospital are all positively correlated, as one would expect. 
+
+There is also a slighly positive correlation (0.15) with the number of days the patient was in the hospital the previous year, `number_inpatient`. 
+
+A correlation matrix on the entire one-hot encoded dataset is not shown as it has too meany features and is difficult to ascertain the relationships.
+
+![alt text]('Images/CorrelationPlot.png')
+
+## Modelling & Hyperparameter Optimization
+
+The data is scaled, one hot encoded, and split into training and test sets where 80% of the data is used for training. This means the training set is comprised of 57,214 observations, while the test set is 14,304 observations.
+
+A baseline model, predicting no readmission, has an accuracy of 59.86%. 
+
+Several models are trained using `RandomizedSearchCV` and `GridSearchCV`. I use 5-fold cross validation to select the combination of hyperparameters that maximizes accuracy on the out-of-fold prediction. The following models are used:
+- Ridge Regression
+- Stochastic Gradient Descent (SGD) Classifier
+- Random Forest Classifier
+- Adaboost Classifier using Decision Trees with a depth of 1
+- Hardvoting Classifier
+- Softvoting Classifier
+
+If a hospital were to use a similair model in a production setting, they may optimize for precision or recall depending on the weight they put on false negatives or positives.
+
+Logistic regression with lasso regularization was also used, but had trouble converging in a reasonable amount of time (<5 minutes). Other classifiers, such as K-Nearest Neighbors and Support Vector Machines are unreasonable for this many attributes.
+
+## Results
+
+Models, their accuracy on the test set, and their hyperparameters are stored in `Models.csv`. 
+
+The Random Forest performs best in Out-of-Fold predictions, with an accuracy of 63.70%, an improvement over baseline of 3.84%.
+
+Assessing accuracy using the test set, the Sofvoting Classifier performs best with an accuracy of 63.39%, an improvment of 3.53%.
+
+Below are precision, recall, and F1 score for the Softvoting Classifier, where:
+
+$$
+precision = \frac{TP}{TP + FP}\tag{2}
+$$
+
+$$
+recall = \frac{TP}{TP + FN}\tag{3}
+$$
 
 
-## Further Investigations
+$$
+F1 = 2 \cdot {\frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}}\tag{4}
+$$
+
+Where:
+- FP = False Positives
+- FN = False Negatives
+
+![alt_text]('Images/Softvoting_results.png')
+
+Below are ROC curves for each model with a `.predict_proba_` method - the dotted line represents a totally random model, and so curves farther away from the model are better. 
+
+![alt_text]('Images/ROC_adaboost.png')
+![alt_text]('Images/ROC_random forest.png')
+![alt_text]('Images/ROC_ridge.png')
+![alt_text]('Images/ROC_softvoting.png')
+
+
+## Conslusion
+
+### Further Investigations
 
 There are two areas where further investigation is warranted:
 1. Perhaps a neural network can better predict readmission using this data.
@@ -78,7 +184,7 @@ There are two areas where further investigation is warranted:
     I believe this to be unlikely as there were no features that stood out in figures 2 and 3 - each orange bar is approximately 75% of the adjacent blue bar, which is proportional to the occurence rate of readmission. Thus, no feature stands out in its ability to explain the variance in readmission. Using PCA, it _may_ be possible to reduce the feature space to a manageable size without erroding too much explaiend variance in readmission. Unfortunantly, I do not think much of the variance in readmission is explained in this dataset (i.e., there are other unknown variables that dramatically impact readmission), and so PCA would likely not be particularly useful. 
 
 
-### Redefining Readmission
+#### Redefining Readmission
 The present analysis defines readmission as a patient revisiting the hospital whether it be less than or greater than 30 days after their original admission. Hospitals are likely more concerned about readmission within 30 days, but these models do not perform will when using this definition. To see model performance, in `preprocessing.py`, simply change line 33 such that:
 
 ```python

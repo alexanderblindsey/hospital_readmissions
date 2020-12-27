@@ -99,14 +99,14 @@ In an effort to reduce dimensionality, changes in prescribed drug dosages are us
 
 Drug features are then dropped from modelling.
 
-![alt text]('Images/Readmission_DrugChanges.png')
+![alt text](Images/Readmission_DrugChanges.png)
 
 ### Admission Type, Admission Source, Discharge Disposition
 As seen in the `codes` dataframe, many of values in `admission_source_id`, `admission_type_id`, and `discharge_disposition_id` are very similair (i.e., `discharge_disposition_id` equal to 11, 19, 20 or 21 all indicated the patient expired). 
 
 Similair values are therefore lumped together based on their definition in `codes`. 
 
-![alt text]('Images/Readmission_ID.png')
+![alt text](Images/Readmission_ID.png)
 
 ### Correlation Matrix
 
@@ -116,7 +116,7 @@ There is also a slighly positive correlation (0.15) with the number of days the 
 
 A correlation matrix on the entire one-hot encoded dataset is not shown as it has too meany features and is difficult to ascertain the relationships.
 
-![alt text]('Images/CorrelationPlot.png')
+![alt text](Images/CorrelationPlot.png)
 
 ## Modelling & Hyperparameter Optimization
 
@@ -132,7 +132,7 @@ Several models are trained using `RandomizedSearchCV` and `GridSearchCV`. I use 
 - Hardvoting Classifier
 - Softvoting Classifier
 
-If a hospital were to use a similair model in a production setting, they may optimize for precision or recall depending on the weight they put on false negatives or positives.
+If a hospital were to use a similar model in a production setting, they may optimize for precision or recall depending on the weight they put on false negatives or positives.
 
 Logistic regression with lasso regularization was also used, but had trouble converging in a reasonable amount of time (<5 minutes). Other classifiers, such as K-Nearest Neighbors and Support Vector Machines are unreasonable for this many attributes.
 
@@ -163,14 +163,14 @@ Where:
 - FP = False Positives
 - FN = False Negatives
 
-![alt_text]('Images/Softvoting_results.png')
+![alt_text](Images/Softvoting_results.png)
 
 Below are ROC curves for each model with a `.predict_proba_` method - the dotted line represents a totally random model, and so curves farther away from the model are better. 
 
-![alt_text]('Images/ROC_adaboost.png')
-![alt_text]('Images/ROC_random forest.png')
-![alt_text]('Images/ROC_ridge.png')
-![alt_text]('Images/ROC_softvoting.png')
+![alt_text](Images/ROC_adaboost.png)
+![alt_text](Images/ROC_random forest.png)
+![alt_text](Images/ROC_ridge.png)
+![alt_text](Images/ROC_softvoting.png)
 
 
 ## Conslusion

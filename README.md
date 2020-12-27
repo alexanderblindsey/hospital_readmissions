@@ -20,9 +20,9 @@ Models similair to the one(s) created in this investigation could be used by hos
 
 The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for accuracy, where: 
 
-'''math
+```math
 accuracy= \frac{TP + TN}{total\ observations}\tag{1}
-'''
+```
 
 Where:
 - TP = True Positive

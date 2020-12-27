@@ -144,7 +144,7 @@ for i in df.index:
 
 
 # save - for initial viz
-df.to_csv(r'Data/Processed/df1.csv')
+df.to_csv(r'Data/Processed/df1.csv', index_label=False)
 
 
 # find changes in patient drug regimen
@@ -167,7 +167,8 @@ columns = ['gender',
            'number_emergency',
            'number_diagnoses',
            'num_lab_procedures',
-           'diagnosis']
+           'diagnosis',
+           'drug_changes']
 drug_cols = [col for col in df.columns.drop(['readmitted']) if col not in columns]
 
 for i in tqdm(df.index):
@@ -176,6 +177,8 @@ for i in tqdm(df.index):
             df.at[i, 'drug_changes'] = df.at[i, 'drug_changes'] + 1
         elif df.at[i, c] == 'Down':
             df.at[i, 'drug_changes'] = df.at[i, 'drug_changes'] + 1
+        else:
+            continue
 
 df.drop(drug_cols, axis=1, inplace=True) # drop drug cols - responsible for too
                                          # many features in one-hot-encoded df
@@ -228,7 +231,7 @@ for i in tqdm(df.index):
 
 
 # save - for id columns viz
-df.to_csv(r'Data/Processed/df2.csv')
+df.to_csv(r'Data/Processed/df2.csv', index_label=False)
 
 
 # one hot encode
@@ -264,8 +267,8 @@ X_test = pd.DataFrame(ct.transform(X_test),
 
 
 # save preprocessed dataset
-df_ohe.to_csv(r'Data/Processed/df_ohe.csv')
-X_train.to_csv(r'Data/Processed/X_train.csv')
-X_test.to_csv(r'Data/Processed/X_test.csv')
-y_train.to_csv(r'Data/Processed/y_train.csv')
-y_test.to_csv(r'Data/Processed/y_test.csv')
+df_ohe.to_csv(r'Data/Processed/df_ohe.csv', index_label=False)
+X_train.to_csv(r'Data/Processed/X_train.csv', index_label=False)
+X_test.to_csv(r'Data/Processed/X_test.csv', index_label=False)
+y_train.to_csv(r'Data/Processed/y_train.csv', index_label=False)
+y_test.to_csv(r'Data/Processed/y_test.csv', index_label=False)

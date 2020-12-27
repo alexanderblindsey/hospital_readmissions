@@ -37,4 +37,4 @@ ids.loc[5, 'admission_type_id'] = 'NULL'
 ids.loc[16, 'discharge_disposition_id'] = 'NULL'
 
 # save
-ids.to_csv(r'Data/Processed/IDs_mapping_processed.csv')
+ids.to_csv(r'Data/Processed/IDs_mapping_processed.csv', index_label=False)

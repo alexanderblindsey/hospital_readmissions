@@ -1,4 +1,4 @@
-,values,admission_source_id,admission_type_id,discharge_disposition_id
+values,admission_source_id,admission_type_id,discharge_disposition_id
 0,1, Physician Referral,Emergency,Discharged to home
 1,2,Clinic Referral,Urgent,Discharged/transferred to another short term hospital
 2,3,HMO Referral,Elective,Discharged/transferred to SNF

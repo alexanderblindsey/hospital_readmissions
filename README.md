@@ -1,6 +1,8 @@
 # Predicting Hospital Readmission
 
-December 21, 2020
+December 27, 2020
+
+Alexander Lindsey
 
 ## Background
 
@@ -16,7 +18,11 @@ Models similair to the one(s) created in this investigation could be used by hos
 
 ## Goal
 
-The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for  accuracy.
+The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for accuracy, where: 
+
+$$accuracy= \frac{positive\ observations}{total\ observations}\tag{1}$$
+
+Readmission is defined, for the purposes of this specific analysis, as _any readmission_ after the original admission to the hospital (e.g., the patient would count as reamitted if they were readmitted after 30 days). This is because the incidence rate of <30 day readmission is extremely low in this dataset.
 
 
 ## Data Description
@@ -52,3 +58,30 @@ Below is a list of features and their descriptions.
 - `diabetesMed`: Indicates if there was any diabetic medication prescribed. Values: "yes" and "no".
 - 24 features for medications: Medications under their generic names: `metformin`, `repaglinide`, `nateglinide`, `chlorpropamide`, `glimepiride`, `acetohexamide`, `glipizide`, `glyburide`, `tolbutamide`, `pioglitazone`, `rosiglitazone`, `acarbose`, `miglitol`, `troglitazone`, `tolazamide`, `examide`, `sitagliptin`, `insulin`, `glyburide-metformin`, `glipizide-metformin`, `glimepiride-pioglitazone`, `metformin-rosiglitazone`, and `metformin- pioglitazone`. The feature indicates whether the drug was prescribed or there was a change in the dosage. _Values: up if the dosage was increased during the encounter, down if the dosage was decreased, steady if the dosage did not change, and no if the drug was not prescribed._
 - `readmitted`: Days to inpatient readmission. Values: “<30” if the patient was readmitted in less than 30 days, “>30” if the patient was readmitted in more than 30 days, and “No” for no record of readmission
+
+## Exploratory Analysis
+
+### Readmission
+
+As can be seen below, the prevalance of readmission in this dataset is low - likely a reflection of the fact that readmission is costly to care providers.
+
+<p align="center">
+  <img src="Images/Readmission_Incidence.png" width="350">
+</p>
+
+
+## Further Investigations
+
+There are two areas where further investigation is warranted:
+1. Perhaps a neural network can better predict readmission using this data.
+2. A more thoughtful feature selection, such as Principal Component Analysis (PCA), may lead to improved results. Due to the quantity of features in this dataset, feature selection is extremely important. Through the feature selection above, I may have erroded a large portion of explained variability in this data.
+    
+    I believe this to be unlikely as there were no features that stood out in figures 2 and 3 - each orange bar is approximately 75% of the adjacent blue bar, which is proportional to the occurence rate of readmission. Thus, no feature stands out in its ability to explain the variance in readmission. Using PCA, it _may_ be possible to reduce the feature space to a manageable size without erroding too much explaiend variance in readmission. Unfortunantly, I do not think much of the variance in readmission is explained in this dataset (i.e., there are other unknown variables that dramatically impact readmission), and so PCA would likely not be particularly useful. 
+
+
+### Redefining Readmission
+The present analysis defines readmission as a patient revisiting the hospital whether it be less than or greater than 30 days after their original admission. Hospitals are likely more concerned about readmission within 30 days, but these models do not perform will when using this definition. To see model performance, in `preprocessing.py`, simply change line 33 such that:
+
+```python
+df['readmitted'].replace({'<30':'YES', '>30':'NO'}, inplace=True)
+```

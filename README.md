@@ -156,12 +156,12 @@ Where:
 - FP = False Positives
 - FN = False Negatives
 
-![alt_text](Images/softvoting_results)
+![alt_text](Images/softvoting_results.png)
 
 Below are ROC curves for each model with a `.predict_proba_` method - the dotted line represents a totally random model, and so curves farther away from the model are better. 
 
 ![alt_text](Images/ROC_adaboost.png)
-![alt_text](Images/ROC_random forest.png)
+![alt_text](Images/ROC_randomforest.png)
 ![alt_text](Images/ROC_ridge.png)
 ![alt_text](Images/ROC_softvoting.png)
 
@@ -184,6 +184,3 @@ The present analysis defines readmission as a patient revisiting the hospital wh
 ```python
 df['readmitted'].replace({'<30':'YES', '>30':'NO'}, inplace=True)
 ```
-
-<script type="text/javascript" async
-src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">

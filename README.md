@@ -20,9 +20,7 @@ Models similair to the one(s) created in this investigation could be used by hos
 
 The goal of this investigation is to create a classification model using supervised machine learning that predicts if a patient will be readmitted or not. Models are optimized for accuracy, where: 
 
-$$
-accuracy= \frac{TP + TN}{total\ observations}\tag{1}
-$$
+accuracy= (TP + TN) / total
 
 Where:
 - TP = True Positive
@@ -148,24 +146,17 @@ Assessing accuracy using the test set, the Sofvoting Classifier performs best wi
 
 Below are precision, recall, and F1 score for the Softvoting Classifier, where:
 
-$$
-precision = \frac{TP}{TP + FP}\tag{2}
-$$
+precision = TP / (TP + FP)
 
-$$
-recall = \frac{TP}{TP + FN}\tag{3}
-$$
+recall = TP / (TP + FN)
 
-
-$$
-F1 = 2 \cdot {\frac{\text{precision} \cdot \text{recall}}{\text{precision} + \text{recall}}}\tag{4}
-$$
+F1 = 2 * (precision / (precision * recall))
 
 Where:
 - FP = False Positives
 - FN = False Negatives
 
-![alt_text](Images/Softvoting_results.png)
+![alt_text](Images/Softvoting_results)
 
 Below are ROC curves for each model with a `.predict_proba_` method - the dotted line represents a totally random model, and so curves farther away from the model are better. 
 

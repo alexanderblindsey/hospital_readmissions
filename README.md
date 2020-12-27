@@ -169,6 +169,8 @@ Below are ROC curves for each model with a `.predict_proba_` method - the dotted
 
 The models effectively predict hospital readmission when hospital readmission includes readmission both greater than 30 days after the original admission.
 
+The best performing model, the sofvoting classifier, is a 6% improvement over the baseline model.
+
 ### Further Investigations
 
 There are two areas where further investigation is warranted:

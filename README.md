@@ -84,7 +84,7 @@ As can be seen below, the prevalance of readmission in this dataset is low - lik
 
 ### Incidence of Features (Non-Drug) vs. Readmission
 
-Figure 2, below, shows the incidence of each non-drug feature, broken down by readmission. 
+Figure 3, below, shows the incidence of each non-drug feature, broken down by readmission. 
 
 Unfortunantly, the incidence rate of readmission is constant for each feature - no feature stands out that might play a major role in predicting readmission. However, there are a few patterns to note:
 - The likelyhood of readmission increases with a change in diabetic medication.
@@ -99,9 +99,9 @@ Note that the y-axis is the number of observations.
 
 ### Incidence of Drug Features vs. Readmission
 
-Figure 3 below shows the same as Figure 2 but for drug features. Unfortnately, no features stand out in its possible ability to explain the variance of readmission.
+Figure 4 below shows the same as Figure 3 but for drug features. Unfortnately, no features stand out in its possible ability to explain the variance of readmission.
 
-![alt text](Images/readmitted_drug.png)
+![alt text](Images/readmission_drug.png)
 
 ### Changes in Drug Regimen
 
@@ -120,7 +120,7 @@ Similair values are therefore lumped together based on their definition in `code
 
 ### Correlation Matrix
 
-Figure 5 below shows the correlation matrix for a continuous features. Notice that the number of procedures, number of medications, and time in hospital are all positively correlated, as one would expect. 
+Figure 6 below shows the correlation matrix for a continuous features. Notice that the number of procedures, number of medications, and time in hospital are all positively correlated, as one would expect. 
 
 There is also a slighly positive correlation (0.15) with the number of days the patient was in the hospital the previous year, `number_inpatient`. 
 

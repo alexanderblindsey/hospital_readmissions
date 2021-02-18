@@ -95,13 +95,13 @@ Unfortunantly, the incidence rate of readmission is constant for each feature - 
 
 Note that the y-axis is the number of observations. 
 
-![alt text](Images/readmission_nondrug.png)
+![alt text](Images/readmitted_nondrug.png)
 
 ### Incidence of Drug Features vs. Readmission
 
 Figure 3 below shows the same as Figure 2 but for drug features. Unfortnately, no features stand out in its possible ability to explain the variance of readmission.
 
-![alt text](Images/readmission_drug.png)
+![alt text](Images/readmitted_drug.png)
 
 ### Changes in Drug Regimen
 
@@ -109,7 +109,7 @@ In an effort to reduce dimensionality, changes in prescribed drug dosages are us
 
 Drug features are then dropped from modelling.
 
-![alt text](Images/readmission_drug_changes.png)
+![alt text](Images/readmitted_drug_changes.png)
 
 ### Admission Type, Admission Source, Discharge Disposition
 As seen in the `codes` dataframe, many of values in `admission_source_id`, `admission_type_id`, and `discharge_disposition_id` are very similair (i.e., `discharge_disposition_id` equal to 11, 19, 20 or 21 all indicated the patient expired). 

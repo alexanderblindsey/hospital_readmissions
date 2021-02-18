@@ -101,7 +101,7 @@ Note that the y-axis is the number of observations.
 
 Figure 4 below shows the same as Figure 3 but for drug features. Unfortnately, no features stand out in its possible ability to explain the variance of readmission.
 
-![alt text](Images/readmission_drug.png)
+![alt text](Images/Readmission_Drug.png)
 
 ### Changes in Drug Regimen
 

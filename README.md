@@ -154,7 +154,7 @@ Below are ROC curves for each model with a `.predict_proba_` method - the dotted
 
 # Conclusion
 
-The models fail to predict 30-day hospital readmission, meaning that they always or almost always predict that readmission will not occur. The random forest and SGD classifier both never predict a patient will be readmitted, making them equivalent to the naive baseline model.
+The models fail to predict 30-day hospital readmission, meaning that they always or almost always predict that readmission will not occur. The random forest and SGD classifier both never predict a patient will be readmitted, making them equivalent to the naïve baseline model.
 
 Interestingly, the Ridge regression classifier predicted the most patients would be readmitted, with a grand total of 14. Still, 8 of these were false positives and the model is not useful.
 
